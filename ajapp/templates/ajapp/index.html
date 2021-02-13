@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="body">
+    <input name='title' type="text" >
+    <script>
+
+        let text = document.querySelector('input');
+        let request = new XMLHttpRequest();
+        text.onkeyup = (e)=>{
+            if(e.keyCode === 13){
+                request.open('POST','',true);
+                request.setRequestHeader('Content-Type','application/x-www-form-urlencoded; charset=UTF-8');
+                var myObject = {value :text.value}
+                request.send(JSON.stringify(myObject));
+            }
+        }
+
+
+        request.onload = (json)=>{
+            if(request.status === 200){
+                var a = JSON.parse(json.currentTarget.response);
+                var body = document.getElementById('body');
+                var newDIV = document.createElement("div");
+                newDIV.innerHTML = `${a['value']}`;
+                body.appendChild(newDIV);
+                console.log(`you did ajax successfully ${a['value']}`);
+            }else{
+                console.log(request.status);
+            }
+        }
+
+        request.onerror = () =>{
+            console.log(Error('Error : connection fails'));
+        }
+    </script>    
+</body>
+</html>
