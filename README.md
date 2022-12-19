@@ -92,4 +92,12 @@ If the request has POST signal, It changes the body of the response into python 
 
 This code catches the response from server and display the response data to screen
 
+## How to start
+```
+source venv/Scripts/activate
+python manage.py migrate
+python manage.py runserver
+
+```
+
 
